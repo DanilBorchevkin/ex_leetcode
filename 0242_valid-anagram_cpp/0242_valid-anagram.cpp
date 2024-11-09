@@ -1,4 +1,5 @@
-// Link to the problem - https://leetcode.com/problems/valid-anagram/description/
+// Link to the problem -
+// https://leetcode.com/problems/valid-anagram/description/
 
 #include <cassert>
 #include <string>
@@ -7,10 +8,17 @@
 using std::string;
 using std::unordered_map;
 
-
 class Solution {
 public:
   bool isAnagram(string s, string t) {
+    if (s.length() != t.length()) {
+      return false;
+    }
+
+    for (const char)
+  }
+
+  bool isAnagram_onMap(string s, string t) {
     unordered_map<char, int> hash_map_s;
     unordered_map<char, int> hash_map_t;
 
@@ -32,14 +40,14 @@ public:
 };
 
 void test() {
-    Solution solution = Solution();
+  Solution solution = Solution();
 
-    assert(true == solution.isAnagram("an", "na"));
-    assert(false == solution.isAnagram("cat", "rat"));
+  assert(true == solution.isAnagram("an", "na"));
+  assert(false == solution.isAnagram("cat", "rat"));
 }
 
 int main() {
-    test();
+  test();
 
-    return 0;
+  return 0;
 }
