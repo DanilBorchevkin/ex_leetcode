@@ -8,8 +8,31 @@ using namespace std;
 
 class Solution {
 public:
-    // Solution based on binary search
+
     int searchInsert(vector<int>& nums, int target) {
+        int left_idx = -1;
+        int right_idx = nums.size();
+        
+        while (left_idx != (right_idx - 1)) {
+            size_t mid_idx = (left_idx + right_idx) / 2;
+
+            if (nums[mid_idx] <= target) {
+                left_idx = mid_idx;
+            } else {
+                right_idx = mid_idx;
+            }
+        }
+
+        if (left_idx == -1) {
+            return 0;
+        }
+
+        int result_idx = (nums[left_idx] == target) ? (left_idx) : (left_idx + 1);
+
+        return result_idx;
+    }
+
+    int searchInsert2(vector<int>& nums, int target) {
         size_t max_idx = nums.size() - 1;
         size_t min_idx = 0;
         size_t mid_idx = 0;
