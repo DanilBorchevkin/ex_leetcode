@@ -14,6 +14,28 @@ public:
             return 0;
         }
 
+        int max_profit = 0;
+        int max_price = *prices.rbegin();
+
+        for (auto it = (prices.rbegin() + 1); it != prices.rend(); ++it) {
+            int profit = max_price - (*(it));
+            if (profit > max_profit) {
+                max_profit = profit;
+            }
+
+            if (*(it) >  max_price) {
+                max_price = *(it);
+            }
+        }
+
+        return max_profit;
+    }
+
+    int maxProfit_N2(vector<int>& prices) {
+        if (prices.size() <= 1) {
+            return 0;
+        }
+
         vector<int> max_profits;
         max_profits.reserve(prices.size());
 
