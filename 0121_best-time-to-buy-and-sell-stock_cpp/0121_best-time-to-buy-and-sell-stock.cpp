@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstddef>
 #include <cassert>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,37 +14,39 @@ public:
             return 0;
         }
 
-        size_t buy_idx = 0;
-        size_t sell_idx = 0;
-        int max_profit = 0
-        
-        for (size_t idx = 1; idx < prices.size(); ++idx) {
-            // Define buy / min price index
-            if ((prices[idx] < prices[buy_idx]) && (idx < (prices.size() - 1))) {
-                buy_idx = idx;
+        vector<int> max_profits;
+        max_profits.reserve(prices.size());
 
-                // Assing low value for selling
-                sell_idx = idx;
-                continue;
-            }
-
-            // Define max / sell price index
-            if (prices[idx] > prices[sell_idx]) {
-                sell_idx = idx;
-            }
+        // Iterate over all prices
+        for (auto it = prices.begin(); it != prices.end(); ++it) {
+            // Find maximum profits for each price
+            int profit = maxProfitByBuyPrice((it + 1), prices.end(), *it);
+            max_profits.push_back(profit);
         }
 
-        // TODO: finish this
-
-        int result = 0;
-
-        if (buy_idx >= sell_idx) {
-            result = 0;
-        } else {
-            result = prices.at(sell_idx) - prices.at(buy_idx);
+        // Find maximum profit over all prices
+        int max_profit = 0;
+        auto it = std::max_element(max_profits.begin(), max_profits.end());
+        if (it != max_profits.end()) {
+            max_profit = *it;
         }
 
-        return result;
+        return max_profit;
+    }
+private:
+    template <class Iterator>
+    int maxProfitByBuyPrice(Iterator first, Iterator last, int buy_price) {
+        int max_profit = 0;
+
+        while (first != last) {
+            int profit = *first - buy_price;
+            if (profit > max_profit) {
+                max_profit = profit;
+            }
+            ++first;
+        }
+
+        return max_profit;
     }
 };
 
